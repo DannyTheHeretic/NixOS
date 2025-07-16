@@ -89,7 +89,7 @@
           "$term" = "${getExe pkgs.${terminal}}";
           "$editor" = "code --disable-gpu";
           "$fileManager" = "$term --class \"terminalFileManager\" -e ${terminalFileManager}";
-          "$browser" = browser;
+          "$browser" = "firefox";
 
           env = [
             "XDG_CURRENT_DESKTOP,Hyprland"
@@ -362,7 +362,7 @@
               "$mainMod, slash, exec, ${./scripts/keybinds.sh}"
               "$mainMod CTRL, K, exec, ${./scripts/keybinds.sh}"
 
-              "$mainMod, F8, exec, kill $(cat /tmp/auto-clicker.pid) 2>/dev/null || ${lib.getExe autoclicker} --cps 40"
+              # "$mainMod, F8, exec, kill $(cat /tmp/auto-clicker.pid) 2>/dev/null || ${lib.getExe autoclicker} --cps 40"
               # "$mainMod ALT, mouse:276, exec, kill $(cat /tmp/auto-clicker.pid) 2>/dev/null || ${lib.getExe autoclicker} --cps 60"
 
               # Night Mode (lower value means warmer temp)
@@ -385,13 +385,13 @@
               "$mainMod, T, exec, $term"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
-              "$mainMod, F, exec, $browser"
+              "$mainMod, B, exec, $browser"
               "$mainMod SHIFT, S, exec, spotify"
               "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
+              "$CONTROL $mainMod, ENTER, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               "$mainMod, SPACE, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
               # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications

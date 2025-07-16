@@ -49,15 +49,15 @@
       # User configuration
       username = "theheretic"; # automatically set with install.sh and live-install.sh
       editor = "neovim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
-      browser = "firefox"; # firefox, floorp, zen
+      browser = "floorp"; # firefox, floorp, zen
       terminal = "kitty"; # kitty, alacritty, wezterm
       terminalFileManager = "yazi"; # yazi or lf
-      sddmTheme = "purple_leaves"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
-      wallpaper = "kurzgesagt"; # see modules/themes/wallpapers
+      sddmTheme = "astronaut"; # astronaut, black_hole, purple_leaves, jake_the_dog, hyprland_kath
+      wallpaper = "fog"; # see modules/themes/wallpapers
 
       # System configuration
-      videoDriver = "intel"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
-      hostname = "nixi"; # CHOOSE A HOSTNAME HERE
+      videoDriver = "amdgpu"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
+      hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
       locale = "en_US.UTF-8"; # CHOOSE YOUR LOCALE
       timezone = "America/Chicago"; # CHOOSE YOUR TIMEZONE
       kbdLayout = "us"; # CHOOSE YOUR KEYBOARD LAYOUT
