@@ -29,5 +29,5 @@
 
   # Thermal and Noise Management
   services.thermald.enable = true;
-  services.throttled.enable = true;
+  #services.throttled.enable = true;
 }

@@ -18,8 +18,8 @@
             eamodio.gitlens
             github.vscode-github-actions
             yzhang.markdown-all-in-one
-            catppuccin.catppuccin-vsc
-            catppuccin.catppuccin-vsc-icons
+            #catppuccin.catppuccin-vsc
+            #catppuccin.catppuccin-vsc-icons
             # asvetliakov.vscode-neovim
             # vscodevim.vim
             tamasfe.even-better-toml
@@ -36,6 +36,7 @@
             # pkief.material-icon-theme
             # equinusocio.vsc-material-theme
             # dracula-theme.theme-dracula
+	    enkia.tokyo-night
           ];  
           keybindings = [
             {
@@ -57,8 +58,7 @@
             "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
             "terminal.integrated.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont'";
             "editor.fontSize" = 14;
-            "workbench.colorTheme" = "Catppuccin Mocha";
-            "workbench.iconTheme" = "catppuccin-mocha";
+            "workbench.colorTheme" = "Tokyo Night";
             "catppuccin.accentColor" = "lavender";
             "vsicons.dontShowNewVersionMessage" = true;
             "explorer.confirmDragAndDrop" = false;
