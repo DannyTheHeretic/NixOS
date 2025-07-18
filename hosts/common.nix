@@ -65,8 +65,10 @@
       home.packages = with pkgs; [
         # Applications
         #kate
-
-        # Terminal
+        firefox
+        plexamp
+	      pixi
+        localstack
         fzf
         fd
         git
@@ -87,6 +89,18 @@
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+  virtualisation.containers.enable = true;
+  virtualisation = {
+    podman = {
+      enable = true;
+
+      # Create a `docker` alias for podman, to use it as a drop-in replacement
+      dockerCompat = true;
+
+      # Required for containers under podman-compose to be able to talk to each other.
+      defaultNetwork.settings.dns_enabled = true;
+    };
+  };
 
   services.scx = {
     enable = true;
@@ -123,10 +137,20 @@
       };
     };
   };
-
+  services.xserver.desktopManager.runXdgAutostartIfNone=true;
   # Timezone and locale
   time.timeZone = timezone;
   i18n.defaultLocale = locale;
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [ 
+      # fcitx5-mozc
+      fcitx5-mozc-ut
+      fcitx5-gtk 
+    ];
+  };
+
   i18n.extraLocaleSettings = {
     LC_ADDRESS = locale;
     LC_IDENTIFICATION = locale;

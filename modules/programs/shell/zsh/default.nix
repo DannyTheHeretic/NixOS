@@ -45,9 +45,9 @@
           # Key Bindings
           # bindkey -s ^t "tmux-sessionizer\n"
           # bindkey '^f' "cd $(${pkgs.fd}/bin/fd . /mnt/work /mnt/work/Projects/ /run/current-system ~/ --max-depth 1 | fzf)\n"
-          bindkey '^l' "${terminalFileManager}\r"
-          bindkey '^a' beginning-of-line
-          bindkey '^e' end-of-line
+          # bindkey '^l' "${terminalFileManager}\r"
+          # bindkey '^a' beginning-of-line
+          # bindkey '^e' end-of-line
 
           # options
           unsetopt menu_complete
@@ -207,9 +207,8 @@
 
           # Directory Shortcuts.
           dots = "cd ~/NixOS/";
-          games = "cd /mnt/games/";
-          work = "cd /mnt/work/";
-          media = "cd /mnt/work/media/";
+          work = "cd ~/Documents/";
+          media = "cd ~/Documents/gcs/";
           projects = "cd /mnt/work/Projects/";
           proj = "cd /mnt/work/Projects/";
           dev = "cd /mnt/work/Projects/";

@@ -386,8 +386,8 @@
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
               "$mainMod, B, exec, $browser"
-              "$mainMod SHIFT, P, exec, plexamp"
-              "$mainMod SHIFT, Y, exec, youtube-music"
+              "$mainMod SHIFT, M, exec, plexamp"
+              # "$mainMod SHIFT, Y, exec, youtube-music"
               "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
@@ -402,10 +402,10 @@
               "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
               "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
               "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
-              "$mainMod, M, exec, pkill -x rofi || ${./scripts/rofimusic.sh}" # online music
+              # "$mainMod, M, exec, pkill -x rofi || ${./scripts/rofimusic.sh}" # online music
 
               # Screenshot/Screencapture
-              "$mainMod, P, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it
+              "$mainMod SHIFT, S, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it
               "$mainMod CTRL, P, exec, ${./scripts/screenshot.sh} sf" # frozen screen, drag to snip an area / click on a window to print it
               "$mainMod, print, exec, ${./scripts/screenshot.sh} m" # print focused monitor
               "$mainMod ALT, P, exec, ${./scripts/screenshot.sh} p" # print all monitor outputs
@@ -508,6 +508,7 @@
             #allow_workspace_cycles=1
             #pass_mouse_when_bound=0
           }
+          exec-once=fcitx5 -d # not ${pkgs.fcitx5}/bin/fcitx5 !
 
           # Easily plug in any monitor
           monitor=,preferred,auto,1
