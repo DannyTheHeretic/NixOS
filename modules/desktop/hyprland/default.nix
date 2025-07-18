@@ -246,33 +246,29 @@
           };
           windowrule = [
             #"noanim, class:^(Rofi)$
-            "tile,title:(.*)(Godot)(.*)$"
-            # "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
-            # "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
-            # "workspace 3, class:^(krita)$"
-            # "workspace 3, title:(.*)(Godot)(.*)$"
-            # "workspace 3, title:(GNU Image Manipulation Program)(.*)$"
-            # "workspace 3, class:^(factorio)$"
-            # "workspace 3, class:^(steam)$"
-            # "workspace 5, class:^(firefox|floorp|zen)$"
-            # "workspace 6, class:^(Spotify)$"
-            # "workspace 6, title:(.*)(Spotify)(.*)$"
+            # "tile,title:(.*)(Godot)(.*)$"
+            "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
+            "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
+            "workspace 3, class:^(firefox|floorp|zen)$"
+            "workspace 4, class:^(Plexamp)$"
+            "workspace 4, title:(.*)(Plexamp)(.*)$"
+            "workspace 5, class:^(steam)$"
 
             # Can use FLOAT FLOAT for active and inactive or just FLOAT
             "opacity 0.80 0.80,class:^(kitty|alacritty|Alacritty|org.wezfurlong.wezterm)$"
             "opacity 0.90 0.90,class:^(gcr-prompter)$" # keyring prompt
             "opacity 0.90 0.90,title:^(Hyprland Polkit Agent)$" # polkit prompt
             "opacity 1.00 1.00,class:^(firefox)$"
-            "opacity 0.90 0.90,class:^(Brave-browser)$"
+            "opacity 1.00 1.00,class:^(Youtube|youtube)$"
             "opacity 0.80 0.80,class:^(thunar)$"
             "opacity 0.80 0.80,class:^(Steam)$"
             "opacity 0.80 0.80,class:^(steam)$"
             "opacity 0.80 0.80,class:^(steamwebhelper)$"
-            "opacity 0.80 0.80,class:^(Spotify)$"
-            "opacity 0.80 0.80,title:(.*)(Spotify)(.*)$"
+            "opacity 0.80 0.80,class:^(Plexamp)$"
+            "opacity 0.80 0.80,title:(.*)(Plexamp)(.*)$"
             "opacity 0.80 0.80,class:^(VSCodium)$"
             "opacity 0.80 0.80,class:^(codium-url-handler)$"
-            "opacity 0.80 0.80,class:^(code)$"
+            "opacity 1.00 0.80,class:^(code)$"
             "opacity 0.80 0.80,class:^(code-url-handler)$"
             "opacity 0.80 0.80,class:^(terminalFileManager)$"
             "opacity 0.80 0.80,class:^(org.kde.dolphin)$"
@@ -382,13 +378,11 @@
 
               # Applications/Programs
               "$mainMod, Return, exec, $term"
-              "$mainMod, T, exec, $term"
               "$mainMod, E, exec, $fileManager"
               "$mainMod, C, exec, $editor"
               "$mainMod, B, exec, $browser"
               "$mainMod SHIFT, M, exec, plexamp"
               # "$mainMod SHIFT, Y, exec, youtube-music"
-              "$CONTROL ALT, DELETE, exec, $term -e '${getExe pkgs.btop}'" # System Monitor
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
               "$mainMod CTRL, ENTER, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
@@ -396,19 +390,19 @@
               # "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
               # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
               # "$mainMod, R, exec, pkill -x rofi || ${./scripts/rofi.sh} file" # brrwse system files
-              "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout
-              "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
+              # "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout TODO Keyboard Switch
+              # "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
-              "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
+              # "$mainMod, G, exec, ${./scripts/rofi.sh} games" # game launcher
               "$mainMod ALT, G, exec, ${./scripts/gamemode.sh}" # disable hypr effects for gamemode
               "$mainMod, V, exec, ${./scripts/ClipManager.sh}" # Clipboard Manager
               # "$mainMod, M, exec, pkill -x rofi || ${./scripts/rofimusic.sh}" # online music
 
               # Screenshot/Screencapture
               "$mainMod SHIFT, S, exec, ${./scripts/screenshot.sh} s" # drag to snip an area / click on a window to print it
-              "$mainMod CTRL, P, exec, ${./scripts/screenshot.sh} sf" # frozen screen, drag to snip an area / click on a window to print it
-              "$mainMod, print, exec, ${./scripts/screenshot.sh} m" # print focused monitor
-              "$mainMod ALT, P, exec, ${./scripts/screenshot.sh} p" # print all monitor outputs
+              # "$mainMod CTRL, P, exec, ${./scripts/screenshot.sh} sf" # frozen screen, drag to snip an area / click on a window to print it
+              # "$mainMod, print, exec, ${./scripts/screenshot.sh} m" # print focused monitor
+              # "$mainMod ALT, P, exec, ${./scripts/screenshot.sh} p" # print all monitor outputs
 
               # Functional keybinds
               ",xf86Sleep, exec, systemctl suspend" # Put computer into sleep mode
@@ -416,8 +410,8 @@
               ",XF86AudioMute,exec,pamixer -t" # mute audio
               ",XF86AudioPlay,exec,playerctl play-pause" # Play/Pause media
               ",XF86AudioPause,exec,playerctl play-pause" # Play/Pause media
-              ",xf86AudioNext,exec,playerctl next" # go to next media
-              ",xf86AudioPrev,exec,playerctl previous" # go to previous media
+              # ",xf86AudioNext,exec,playerctl next" # go to next media
+              # ",xf86AudioPrev,exec,playerctl previous" # go to previous media
 
               # ",xf86AudioNext,exec,${./scripts/MediaCtrl.sh} next" # go to next media
               # ",xf86AudioPrev,exec,${./scripts/MediaCtrl.sh} previous" # go to previous media
@@ -450,12 +444,12 @@
               "$mainMod, j, movefocus, d"
 
               # Go to workspace 6 and 7 with mouse side buttons
-              "$mainMod, mouse:276, workspace, 5"
-              "$mainMod, mouse:275, workspace, 6"
-              "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
-              "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
-              "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
-              "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
+              # "$mainMod, mouse:276, workspace, 5"
+              # "$mainMod, mouse:275, workspace, 6"
+              # "$mainMod SHIFT, mouse:276, movetoworkspace, 5"
+              # "$mainMod SHIFT, mouse:275, movetoworkspace, 6"
+              # "$mainMod CTRL, mouse:276, movetoworkspacesilent, 5"
+              # "$mainMod CTRL, mouse:275, movetoworkspacesilent, 6"
 
               # Rebuild NixOS with a KeyBind
               "$mainMod, U, exec, $term -e ${./scripts/rebuild.sh}"

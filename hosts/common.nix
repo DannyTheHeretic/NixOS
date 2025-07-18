@@ -281,6 +281,7 @@
     pkgs.kdePackages.qtsvg
     pkgs.kdePackages.qtmultimedia
     pkgs.kdePackages.qtvirtualkeyboard
+    fcitx5-mozc-ut
     # libsForQt5.qt5.qtgraphicaleffects
 
     # devenv
