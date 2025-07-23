@@ -9,13 +9,12 @@
       programs.vscode = {
         enable = true;
         # mutableExtensionsDir = true; # TODO: test with home-manager
-        # package = pkgs.vscodium;
-        package = pkgs.vscode;
+        package = pkgs.vscodium;
+        # package = pkgs.vscode;
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
             bbenoist.nix
             # arrterian.nix-env-selector
-            eamodio.gitlens
             github.vscode-github-actions
             yzhang.markdown-all-in-one
             #catppuccin.catppuccin-vsc
@@ -32,11 +31,18 @@
             ms-vscode.makefile-tools
             ziglang.vscode-zig
             # ms-dotnettools.csharp
+            # python
             ms-python.python
-            # pkief.material-icon-theme
-            # equinusocio.vsc-material-theme
-            # dracula-theme.theme-dracula
-	    enkia.tokyo-night
+            njpwerner.autodocstring
+            ms-python.debugpy
+            charliermarsh.ruff
+            wholroyd.jinja
+            samuelcolvin.jinjahtml
+            batisteo.vscode-django
+            usernamehw.errorlens
+            # JavaScript
+            esbenp.prettier-vscode
+      	    enkia.tokyo-night
           ];  
           keybindings = [
             {

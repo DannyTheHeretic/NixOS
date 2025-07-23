@@ -67,7 +67,12 @@
         #kate
         firefox
         plexamp
-	      pixi
+	(pkgs.buildFHSEnv {
+	      name = "pixi";
+	      runScript = "pixi";
+	      targetPkgs = pkgs: with pkgs; [ pixi ];
+	    })	
+	#pixi
         localstack
         fzf
         fd
@@ -83,6 +88,9 @@
       ];
     };
   };
+  
+
+
 
   # Filesystems support
   boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
@@ -260,6 +268,9 @@
     };
   };
 
+  programs.appimage.binfmt=true;
+  programs.appimage.enable=true;
+
   environment.sessionVariables = {
     # These are the defaults, and xdg.enable does set them, but due to load
     # order, they're not set before environment.variables are set, which could
@@ -271,24 +282,28 @@
 
     templates = "${self}/dev-shells";
   };
-
+  services.tailscale.enable = true;
+  
   environment.systemPackages = with pkgs; [
     killall
     lm_sensors
     jq
     bibata-cursors
     sddm-astronaut # Overlayed
+    pokego # Overlayed
     pkgs.kdePackages.qtsvg
     pkgs.kdePackages.qtmultimedia
     pkgs.kdePackages.qtvirtualkeyboard
     fcitx5-mozc-ut
+    tailscale
+    pixi
     # libsForQt5.qt5.qtgraphicaleffects
-
     # devenv
     # devbox
     # shellify
   ];
 
+  programs.npm.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
