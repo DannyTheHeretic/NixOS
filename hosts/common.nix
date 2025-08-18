@@ -56,7 +56,7 @@
         else "/home/${username}";
       home.stateVersion = "23.11"; # Please read the comment before changing.
       home.sessionVariables = {
-        EDITOR = "nvim";
+        EDITOR = "nano";
         BROWSER = browser;
         TERMINAL = terminal;
       };
@@ -67,13 +67,21 @@
         #kate
         firefox
         plexamp
+        (pkgs.buildFHSEnv {
+              name = "uv";
+              runScript = "uv";
+              targetPkgs = pkgs: with pkgs; [ uv python3 ];
+            })
 	(pkgs.buildFHSEnv {
 	      name = "pixi";
 	      runScript = "pixi";
 	      targetPkgs = pkgs: with pkgs; [ pixi ];
 	    })	
 	#pixi
-        localstack
+	plex-desktop
+	podman-compose
+	openssl
+        #localstack
         fzf
         fd
         git
@@ -297,6 +305,7 @@
     fcitx5-mozc-ut
     tailscale
     pixi
+    vesktop
     # libsForQt5.qt5.qtgraphicaleffects
     # devenv
     # devbox
