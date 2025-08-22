@@ -48,7 +48,7 @@
     settings = {
       # User configuration
       username = "theheretic"; # automatically set with install.sh and live-install.sh
-      editor = "vscode"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
+      editor = "neovim"; # nixvim, vscode, nvchad, neovim, emacs (WIP)
       browser = "floorp"; # firefox, floorp, zen
       terminal = "kitty"; # kitty, alacritty, wezterm
       terminalFileManager = "yazi"; # yazi or lf
