@@ -87,7 +87,7 @@
         settings = {
           "$mainMod" = "SUPER";
           "$term" = "${getExe pkgs.${terminal}}";
-          "$editor" = "code --disable-gpu";
+          "$editor" = "codium";
           "$fileManager" = "$term --class \"terminalFileManager\" -e ${terminalFileManager}";
           "$browser" = "firefox";
 
@@ -126,7 +126,8 @@
             "rm '$XDG_CACHE_HOME/cliphist/db'" # Clear clipboard
             "${./scripts/batterynotify.sh}" # battery notification
             # "${./scripts/autowaybar.sh}" # uncomment packages at the top
-            "polkit-agent-helper-1"
+	    "fcitx5 -d"
+	    "polkit-agent-helper-1"
             "pamixer --set-volume 50"
           ];
           input = {
@@ -248,10 +249,11 @@
             #"noanim, class:^(Rofi)$
             # "tile,title:(.*)(Godot)(.*)$"
             "workspace 1, class:^(kitty|Alacritty|org.wezfurlong.wezterm)$"
-            "workspace 2, class:^(code|VSCodium|code-url-handler|codium-url-handler)$"
+            "workspace 2, class:^(code|codium|code-url-handler|codium-url-handler)$"
             "workspace 3, class:^(firefox|floorp|zen)$"
-            "workspace 4, class:^(Plexamp)$"
-            "workspace 4, title:(.*)(Plexamp)(.*)$"
+            "workspace 4, class:^(vesktop)$"
+            "workspace 10, class:^(Plexamp)$"
+            "workspace 10, title:(.*)(Plexamp)(.*)$"
             "workspace 5, class:^(steam)$"
 
             # Can use FLOAT FLOAT for active and inactive or just FLOAT
@@ -385,11 +387,11 @@
               # "$mainMod SHIFT, Y, exec, youtube-music"
               "$mainMod CTRL, C, exec, hyprpicker --autocopy --format=hex" # Colour Picker
 
-              "$mainMod CTRL, ENTER, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
+              # "$mainMod, CTRL, Return, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               "$mainMod, SPACE, exec, pkill -x rofi || ${./scripts/rofi.sh} drun" # launch desktop applications
               # "$mainMod, Z, exec, pkill -x rofi || ${./scripts/rofi.sh} emoji" # launch emoji picker
-              # "$mainMod, tab, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
-              # "$mainMod, R, exec, pkill -x rofi || ${./scripts/rofi.sh} file" # brrwse system files
+              "$mainMod, A, exec, pkill -x rofi || ${./scripts/rofi.sh} window" # switch between desktop applications
+              "$mainMod, R, exec, pkill -x rofi || ${./scripts/rofi.sh} file" # brrwse system files
               # "$mainMod ALT, K, exec, ${./scripts/keyboardswitch.sh}" # change keyboard layout TODO Keyboard Switch
               # "$mainMod SHIFT, N, exec, swaync-client -t -sw" # swayNC panel
               "$mainMod SHIFT, Q, exec, swaync-client -t -sw" # swayNC panel
@@ -502,8 +504,7 @@
             #allow_workspace_cycles=1
             #pass_mouse_when_bound=0
           }
-          exec-once=fcitx5 -d # not ${pkgs.fcitx5}/bin/fcitx5 !
-
+          #exec-once=fcitx5 -d # not ${pkgs.fcitx5}/bin/fcitx5 !
           # Easily plug in any monitor
           monitor=,preferred,auto,1
 	  monitor=DP-1,2560x1440@175,0x0,1

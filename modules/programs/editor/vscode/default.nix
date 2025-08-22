@@ -9,10 +9,13 @@
       programs.vscode = {
         enable = true;
         # mutableExtensionsDir = true; # TODO: test with home-manager
-        package = pkgs.vscodium;
-        # package = pkgs.vscode;
+        package = pkgs.vscodium.fhs;
+	# package = pkgs.vscode;
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
+	    mkhl.direnv
+            #jeanp413.open-remote-ssh	   
+            # arrterian.nix-env-selector
             bbenoist.nix
             # arrterian.nix-env-selector
             github.vscode-github-actions
@@ -41,9 +44,19 @@
             batisteo.vscode-django
             usernamehw.errorlens
             # JavaScript
-            esbenp.prettier-vscode
+            #esbenp.prettier-vscode
+	    #ms-vscode-remote.remote-ssh
+            # ms-python.pylint
       	    enkia.tokyo-night
-          ];  
+          ]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "remote-ssh-edit";
+        publisher = "ms-vscode-remote";
+        version = "0.47.2";
+        sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+      		}	
+    	];  
+	
           keybindings = [
             {
               key = "ctrl+q";
@@ -58,7 +71,9 @@
           userSettings = {
             "update.mode" = "none";
             # "extensions.autoUpdate" = false; # Fixes vscode freaking out when theres an update
-            "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
+            "python.defaultInterpreterPath"="./.pixi/envs/default/bin/python";
+	    "ruff.nativeServer"="on";
+	    "window.titleBarStyle" = "custom"; # needed otherwise vscode crashes, see https://github.com/NixOS/nixpkgs/issues/246509
             "window.menuBarVisibility" = "classic";
             "window.zoomLevel" = 0.5;
             "editor.fontFamily" = "'JetBrainsMono Nerd Font', 'SymbolsNerdFont', 'monospace', monospace";
@@ -78,8 +93,6 @@
             "git.enableSmartCommit" = true;
             "git.autofetch" = true;
             "git.confirmSync" = false;
-            "gitlens.hovers.annotations.changes" = false;
-            "gitlens.hovers.avatars" = false;
 
             "editor.semanticHighlighting.enabled" = true;
             "gopls" = {"ui.semanticTokens" = true;};

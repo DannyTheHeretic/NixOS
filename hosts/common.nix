@@ -56,7 +56,7 @@
         else "/home/${username}";
       home.stateVersion = "23.11"; # Please read the comment before changing.
       home.sessionVariables = {
-        EDITOR = "nvim";
+        EDITOR = "nano";
         BROWSER = browser;
         TERMINAL = terminal;
       };
@@ -79,9 +79,15 @@
               runScript = "pixi";
               targetPkgs = pkgs: with pkgs; [ pixi ];
         })
-	      # pixi
+        # pixi
         # localstack
-        python3
+        wget
+	python3
+	#pixi
+	plex-desktop
+	podman-compose
+	openssl
+        #localstack
         fzf
         fd
         git
@@ -320,6 +326,7 @@
     fcitx5-mozc-ut
     tailscale
     pixi
+    vesktop
     # libsForQt5.qt5.qtgraphicaleffects
     # devenv
     # devbox
