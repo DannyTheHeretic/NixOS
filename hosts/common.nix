@@ -68,15 +68,21 @@
         firefox
         plexamp
         (pkgs.buildFHSEnv {
-              name = "uv";
-              runScript = "uv";
-              targetPkgs = pkgs: with pkgs; [ uv python3 ];
-            })
-	(pkgs.buildFHSEnv {
-	      name = "pixi";
-	      runScript = "pixi";
-	      targetPkgs = pkgs: with pkgs; [ pixi ];
-	    })	
+          name = "uv";
+          runScript = "uv";
+          targetPkgs = pkgs: with pkgs; [ 
+            uv 
+          ];
+        })
+        (pkgs.buildFHSEnv {
+              name = "pixi";
+              runScript = "pixi";
+              targetPkgs = pkgs: with pkgs; [ pixi ];
+        })
+        # pixi
+        # localstack
+        wget
+	python3
 	#pixi
 	plex-desktop
 	podman-compose
@@ -93,6 +99,7 @@
         ripgrep
         tldr
         unzip
+        openrgb-with-all-plugins
       ];
     };
   };
@@ -105,6 +112,20 @@
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+  services.hardware.openrgb.enable = true;
+  services.xserver = {
+    enable = true;
+    # displayManager.sessionCommands = ''
+    # 	xrandr --fb 3640x1920 \
+    #    --output DP-1 --primary --mode 2560x1440 --pos 0x0 \
+    #    --output HDMI-A-1 --mode 1920x1080 --rotate left --pos 2560x0
+    # '';
+    exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
+    xkb = {
+      layout = kbdLayout;
+      variant = kbdVariant;
+    };
+  }; 
   virtualisation.containers.enable = true;
   virtualisation = {
     podman = {
@@ -153,7 +174,7 @@
       };
     };
   };
-  services.xserver.desktopManager.runXdgAutostartIfNone=true;
+  # services.xserver.desktopManager.runXdgAutostartIfNone=true;
   # Timezone and locale
   time.timeZone = timezone;
   i18n.defaultLocale = locale;
@@ -179,13 +200,13 @@
     LC_TIME = locale;
   };
   console.keyMap = consoleKeymap; # Configure console keymap
-  services.xserver = {
-    exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
-    xkb = {
-      layout = kbdLayout;
-      variant = kbdVariant;
-    };
-  };
+  # services.xserver = {
+    # exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
+    # xkb = {
+      # layout = kbdLayout;
+      # variant = kbdVariant;
+    # };
+  # };
 
   security = {
     polkit.enable = true;
@@ -254,7 +275,7 @@
     };
   };
 
-  services.xserver.enable = true; # Enable the X11 windowing system.
+  #services.xserver.enable = true; # Enable the X11 windowing system.
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
@@ -324,18 +345,18 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  /*
-     services.openssh = {
+  
+  services.openssh = {
     enable = true;
+    ports  = [ 22 ];
     settings = {
       PasswordAuthentication = true;
       AllowUsers = null; # Allows all users by default. Can be [ "user1" "user2" ]
-      UseDns = true;
+      #UseDns = true;
       X11Forwarding = false;
       PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
     };
   };
-  */
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
