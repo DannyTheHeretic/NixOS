@@ -42,7 +42,7 @@
     users.${username} = {pkgs, ...}: {
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
-
+  
       xdg.enable = true;
       xdg.portal = {
         enable = true;
@@ -79,11 +79,15 @@
               runScript = "pixi";
               targetPkgs = pkgs: with pkgs; [ pixi ];
         })
+	    (pkgs.buildFHSEnv {
+              name = "python";
+              runScript = "python3";
+              targetPkgs = pkgs: with pkgs; [ python3 python3Packages.virtualenv python3Packages.pip ];
+        })
         # pixi
         # localstack
         wget
-	python3
-	#pixi
+	curl
 	plex-desktop
 	podman-compose
 	openssl

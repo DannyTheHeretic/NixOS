@@ -1,7 +1,16 @@
-{...}: {
+{
+  pkgs,
+  ...
+}: {
   home-manager.sharedModules = [
     (_: {
+
       programs.neovim.enable = true;
+      programs.neovim.plugins = [
+	   # pkgs.vimPlugins.nvim-treesitter
+           pkgs.vimPlugins.nvim-treesitter.withAllGrammars
+      ];
+
       home.file.".config/nvim" = {
         source = builtins.fetchGit {
           url = "https://github.com/Sly-Harvey/nvim.git";
