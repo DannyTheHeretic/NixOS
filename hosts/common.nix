@@ -3,6 +3,7 @@
   outputs,
   pkgs,
   username,
+  options,
   browser,
   terminal,
   locale,
@@ -33,8 +34,109 @@
       "audio"
     ];
   };
-
+  programs.nix-ld.enable = true;
   # Common home-manager options that are shared between all systems.
+  programs.nix-ld.libraries = options.programs.nix-ld.libraries.default ++ (with pkgs; [
+    # put here missing libraries
+  	nodejs
+	electron-bin
+
+	glib.out
+	alsa-lib.out
+	pango.out
+	gtk3.out
+	stdenv.cc.cc
+        openssl
+        xorg.libXcomposite
+        xorg.libXtst
+        xorg.libXrandr
+        xorg.libXext
+        xorg.libX11
+        xorg.libXfixes
+        libGL
+        libva
+        xorg.libxcb
+        xorg.libXdamage
+        xorg.libxshmfence
+        xorg.libXxf86vm
+        libelf
+        
+        # Required
+        glib
+        gtk2
+        bzip2
+        
+        # Without these it silently fails
+        xorg.libXinerama
+        xorg.libXcursor
+        xorg.libXrender
+        xorg.libXScrnSaver
+        xorg.libXi
+        xorg.libSM
+        xorg.libICE
+        nspr
+        nss
+        cups
+        libcap
+        SDL2
+        libusb1
+        dbus-glib
+        ffmpeg
+        # Only libraries are needed from those two
+        libudev0-shim
+        
+        # Verified games requirements
+        xorg.libXt
+        xorg.libXmu
+        libogg
+        libvorbis
+        SDL
+        SDL2_image
+        glew110
+        libidn
+        tbb
+        
+        # Other things from runtime
+        flac
+        freeglut
+        libjpeg
+        libpng
+        libpng12
+        libsamplerate
+        libmikmod
+        libtheora
+        libtiff
+        pixman
+        speex
+        SDL_image
+        SDL_ttf
+        SDL_mixer
+        SDL2_ttf
+        SDL2_mixer
+        libappindicator-gtk2
+        libdbusmenu-gtk2
+        libindicator-gtk2
+        libcaca
+        libcanberra
+        libgcrypt
+        libvpx
+        librsvg
+        xorg.libXft
+        libvdpau
+        cairo
+        atk
+        gdk-pixbuf
+        fontconfig
+        freetype
+        dbus       
+        expat
+        # Needed for electron
+        libdrm
+        mesa
+        libxkbcommon
+
+  ]); 
+  
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
@@ -68,28 +170,64 @@
         firefox
         plexamp
         (pkgs.buildFHSEnv {
-          name = "uv";
-          runScript = "uv";
-          targetPkgs = pkgs: with pkgs; [ 
-            uv 
-          ];
+              name = "uv";
+              runScript = "uv";
+              targetPkgs = pkgs: with pkgs; [  uv ];
         })
         (pkgs.buildFHSEnv {
               name = "pixi";
               runScript = "pixi";
               targetPkgs = pkgs: with pkgs; [ pixi ];
         })
-	    (pkgs.buildFHSEnv {
+	(pkgs.buildFHSEnv {
               name = "python";
               runScript = "python3";
-              targetPkgs = pkgs: with pkgs; [ python3 python3Packages.virtualenv python3Packages.pip ];
+              targetPkgs = pkgs: with pkgs; [     
+		    python313
+		    python313Packages.pip
+		    python313Packages.virtualenv 
+	      ];
+        })
+	(pkgs.buildFHSEnv {
+              name = "npm";
+              runScript = "npm";
+              targetPkgs = pkgs: with pkgs; [
+                    nodejs
+                    electron-bin
+              ];
+        })
+	(pkgs.buildFHSEnv {
+              name = "electron";
+              runScript = "electron";
+              targetPkgs = pkgs: with pkgs; [
+                    nodejs
+                    electron-bin
+		    # glib
+		    glib.out
+              ];
+        })
+	(pkgs.buildFHSEnv {
+              name = "nw";
+              runScript = "nw";
+              targetPkgs = pkgs: with pkgs; [
+                    nodejs
+                    electron-bin
+                    nwjs
+                    glib.out
+              ];
         })
         # pixi
-        # localstack
+	# libpostal
+	hakuneko
+	# ca-certificates
+	immich-go
         wget
 	curl
+	glib
 	plex-desktop
+	chromium
 	podman-compose
+	gcc
 	openssl
         #localstack
         fzf
@@ -279,7 +417,7 @@
     };
   };
 
-  #services.xserver.enable = true; # Enable the X11 windowing system.
+  
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
@@ -326,11 +464,12 @@
     pokego # Overlayed
     pkgs.kdePackages.qtsvg
     pkgs.kdePackages.qtmultimedia
+    glib
     pkgs.kdePackages.qtvirtualkeyboard
     fcitx5-mozc-ut
     tailscale
-    pixi
     vesktop
+    ocamlPackages.ca-certs
     # libsForQt5.qt5.qtgraphicaleffects
     # devenv
     # devbox
