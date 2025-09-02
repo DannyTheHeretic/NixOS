@@ -6,9 +6,9 @@
           withVencord = true;
         })
       ];
-      xdg.configFile."Vencord/themes/catppuccin-mocha.css".text = ''
+      xdg.configFile."Vencord/themes/tokyo-night.css".text = ''
         /**
-        * @name Catppuccin Mocha
+        * @name Tokyo Night
         * @author winston#0001
         * @authorId 505490445468696576
         * @version 0.2.0
@@ -17,7 +17,7 @@
         * @invite r6Mdz5dpFc
         * **/
 
-        @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-mauve.theme.css");
+        @import url("https://raw.githubusercontent.com/Demitrix2k/Tokyo-Night-Theme-for-Discord/refs/heads/main/Themes/Tokyo%20Night%20Dark%20theme.css");
       '';
       xdg.configFile."Vencord/settings/settings.json".text = builtins.toJSON {
         notifyAboutUpdates = true;
@@ -26,7 +26,7 @@
         useQuickCss = true;
         themeLinks = [];
         enabledThemes = [
-          "catppuccin-mocha.css"
+          "tokyo-night.css"
         ];
         enableReactDevtools = false;
         frameless = false;

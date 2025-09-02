@@ -152,10 +152,7 @@
         xdgOpenUsePortal = true;
       };
       home.username = username;
-      home.homeDirectory =
-        if pkgs.stdenv.isDarwin
-        then "/Users/${username}"
-        else "/home/${username}";
+      home.homeDirectory = "/home/${username}";
       home.stateVersion = "23.11"; # Please read the comment before changing.
       home.sessionVariables = {
         EDITOR = "nano";
@@ -188,48 +185,16 @@
 		    python313Packages.virtualenv 
 	      ];
         })
-	(pkgs.buildFHSEnv {
-              name = "npm";
-              runScript = "npm";
-              targetPkgs = pkgs: with pkgs; [
-                    nodejs
-                    electron-bin
-              ];
-        })
-	(pkgs.buildFHSEnv {
-              name = "electron";
-              runScript = "electron";
-              targetPkgs = pkgs: with pkgs; [
-                    nodejs
-                    electron-bin
-		    # glib
-		    glib.out
-              ];
-        })
-	(pkgs.buildFHSEnv {
-              name = "nw";
-              runScript = "nw";
-              targetPkgs = pkgs: with pkgs; [
-                    nodejs
-                    electron-bin
-                    nwjs
-                    glib.out
-              ];
-        })
-        # pixi
-	# libpostal
-	hakuneko
-	# ca-certificates
 	immich-go
         wget
 	curl
 	glib
 	plex-desktop
-	chromium
 	podman-compose
 	gcc
 	openssl
-        #localstack
+	
+	obsidian
         fzf
         fd
         git

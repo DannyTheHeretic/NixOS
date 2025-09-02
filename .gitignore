@@ -2,6 +2,7 @@
 target
 result
 result-*
-
+flake.nix
+# Changing GPU breaking things
 [Bb]ackup
 [Bb]ackup/*
