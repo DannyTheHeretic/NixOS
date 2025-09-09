@@ -187,7 +187,7 @@
           ShowAllMessageButtons.enabled = false;
           ShowConnections.enabled = false;
           ShowHiddenChannels = {
-            enabled = false;
+            enabled = true;
             hideUnreads = true;
             showMode = 1;
           };

@@ -14,18 +14,16 @@
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
 	    mkhl.direnv
-            #jeanp413.open-remote-ssh	   
-            # arrterian.nix-env-selector
+            #jeanp413.open-remote-ssh
             bbenoist.nix
-            # arrterian.nix-env-selector
-            github.vscode-github-actions
+            arrterian.nix-env-selector
+	    
+	    github.vscode-github-actions
             yzhang.markdown-all-in-one
-            #catppuccin.catppuccin-vsc
-            #catppuccin.catppuccin-vsc-icons
             # asvetliakov.vscode-neovim
             # vscodevim.vim
             tamasfe.even-better-toml
-            #jnoortheen.nix-ide
+            jnoortheen.nix-ide
             # redhat.vscode-yaml
             # vadimcn.vscode-lldb
             rust-lang.rust-analyzer
@@ -44,8 +42,8 @@
             batisteo.vscode-django
             usernamehw.errorlens
             # JavaScript
-            #esbenp.prettier-vscode
-	    #ms-vscode-remote.remote-ssh
+            # esbenp.prettier-vscode
+	    # ms-vscode-remote.remote-ssh
             # ms-python.pylint
       	    enkia.tokyo-night
           ]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [

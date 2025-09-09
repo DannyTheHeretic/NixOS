@@ -190,10 +190,11 @@
 	curl
 	glib
 	plex-desktop
+	#plex-desktop-1.108.1
 	podman-compose
 	gcc
 	openssl
-	
+	go	
 	obsidian
         fzf
         fd
