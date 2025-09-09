@@ -193,7 +193,7 @@
 	podman-compose
 	gcc
 	openssl
-	
+	slack		
 	obsidian
         fzf
         fd
@@ -428,13 +428,17 @@
     sddm-astronaut # Overlayed
     pokego # Overlayed
     pkgs.kdePackages.qtsvg
+    gnumake
     pkgs.kdePackages.qtmultimedia
     glib
     pkgs.kdePackages.qtvirtualkeyboard
     fcitx5-mozc-ut
     tailscale
-    vesktop
-    ocamlPackages.ca-certs
+    pkgs.qt6Packages.qtwayland
+    pkgs.qt6Packages.full
+#pkgs.libsForQt6.qt6.qtwayland    
+# vesktop
+    # ocamlPackages.ca-certs
     # libsForQt5.qt5.qtgraphicaleffects
     # devenv
     # devbox
