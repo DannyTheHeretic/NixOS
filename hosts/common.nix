@@ -198,6 +198,7 @@
         fzf
         fd
         git
+	chromium
         gh
         htop
         libjxl
