@@ -197,10 +197,12 @@
 	curl
 	glib
 	plex-desktop
+	#plex-desktop-1.108.1
 	podman-compose
 	gcc
 	openssl
-	slack		
+	go
+	slack
 	obsidian
         fzf
         fd
