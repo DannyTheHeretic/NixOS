@@ -21,8 +21,14 @@
 
   programs.nix-index-database.comma.enable = true;
 
-  users.users.${username} = {
+  users.users.theheretic = {
     isNormalUser = true;
+    uid = 1000;
+    #subuids = [ { start = 100000; count = 65536; } ];
+    #subgids = [ { start = 100000; count = 65536; } ];
+    subUidRanges = [ { startUid = 100000; count = 65536; } ];
+    subGidRanges = [ { startGid = 100000; count = 65536; } ];
+
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -144,7 +150,7 @@
     users.${username} = {pkgs, ...}: {
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
-  
+
       xdg.enable = true;
       xdg.portal = {
         enable = true;
@@ -187,6 +193,7 @@
         })
 	immich-go
         wget
+	easyeffects
 	curl
 	glib
 	plex-desktop
@@ -428,6 +435,7 @@
     bibata-cursors
     sddm-astronaut # Overlayed
     pokego # Overlayed
+    noisetorch
     pkgs.kdePackages.qtsvg
     gnumake
     pkgs.kdePackages.qtmultimedia
@@ -442,7 +450,7 @@
     # ocamlPackages.ca-certs
     # libsForQt5.qt5.qtgraphicaleffects
     # devenv
-    # devbox
+    devbox
     # shellify
   ];
 
