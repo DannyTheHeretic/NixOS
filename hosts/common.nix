@@ -40,108 +40,6 @@
       "audio"
     ];
   };
-  programs.nix-ld.enable = true;
-  # Common home-manager options that are shared between all systems.
-  programs.nix-ld.libraries = options.programs.nix-ld.libraries.default ++ (with pkgs; [
-    # put here missing libraries
-  	nodejs
-	electron-bin
-
-	glib.out
-	alsa-lib.out
-	pango.out
-	gtk3.out
-	stdenv.cc.cc
-        openssl
-        xorg.libXcomposite
-        xorg.libXtst
-        xorg.libXrandr
-        xorg.libXext
-        xorg.libX11
-        xorg.libXfixes
-        libGL
-        libva
-        xorg.libxcb
-        xorg.libXdamage
-        xorg.libxshmfence
-        xorg.libXxf86vm
-        libelf
-        
-        # Required
-        glib
-        gtk2
-        bzip2
-        
-        # Without these it silently fails
-        xorg.libXinerama
-        xorg.libXcursor
-        xorg.libXrender
-        xorg.libXScrnSaver
-        xorg.libXi
-        xorg.libSM
-        xorg.libICE
-        nspr
-        nss
-        cups
-        libcap
-        SDL2
-        libusb1
-        dbus-glib
-        ffmpeg
-        # Only libraries are needed from those two
-        libudev0-shim
-        
-        # Verified games requirements
-        xorg.libXt
-        xorg.libXmu
-        libogg
-        libvorbis
-        SDL
-        SDL2_image
-        glew110
-        libidn
-        tbb
-        
-        # Other things from runtime
-        flac
-        freeglut
-        libjpeg
-        libpng
-        libpng12
-        libsamplerate
-        libmikmod
-        libtheora
-        libtiff
-        pixman
-        speex
-        SDL_image
-        SDL_ttf
-        SDL_mixer
-        SDL2_ttf
-        SDL2_mixer
-        libappindicator-gtk2
-        libdbusmenu-gtk2
-        libindicator-gtk2
-        libcaca
-        libcanberra
-        libgcrypt
-        libvpx
-        librsvg
-        xorg.libXft
-        libvdpau
-        cairo
-        atk
-        gdk-pixbuf
-        fontconfig
-        freetype
-        dbus       
-        expat
-        # Needed for electron
-        libdrm
-        mesa
-        libxkbcommon
-
-  ]); 
   
   home-manager = {
     useGlobalPkgs = true;
@@ -166,7 +64,6 @@
         TERMINAL = terminal;
       };
 
-      # Packages that don't require configuration. If you're looking to configure a program see the /modules dir
       home.packages = with pkgs; [
         # Applications
         #kate
@@ -182,7 +79,7 @@
               runScript = "pixi";
               targetPkgs = pkgs: with pkgs; [ pixi ];
         })
-	(pkgs.buildFHSEnv {
+	      (pkgs.buildFHSEnv {
               name = "python";
               runScript = "python3";
               targetPkgs = pkgs: with pkgs; [     
@@ -191,23 +88,23 @@
 		    python313Packages.virtualenv 
 	      ];
         })
-	immich-go
+	      immich-go
         wget
-	easyeffects
-	curl
-	glib
-	plex-desktop
-	#plex-desktop-1.108.1
-	podman-compose
-	gcc
-	openssl
-	go
-	slack
-	obsidian
+        easyeffects
+        curl
+        glib
+        plex-desktop
+        #plex-desktop-1.108.1
+        podman-compose
+        gcc
+        openssl
+        go
+        slack
+        obsidian
         fzf
         fd
         git
-	chromium
+	      chromium
         gh
         htop
         libjxl
@@ -217,12 +114,140 @@
         tldr
         unzip
         openrgb-with-all-plugins
+        # L2TP/IPsec VPN packages
+        networkmanager-l2tp
+        strongswan
       ];
     };
   };
+
+  # L2TP/IPsec VPN Configuration
+  services.xl2tpd.enable = true;
+  services.strongswan = {
+    enable = true;
+    secrets = [
+      "ipsec.secrets"
+    ];
+  };
+
+  # Network Manager L2TP plugin
+  networking.networkmanager = {
+    enable = true;
+    plugins = with pkgs; [
+      networkmanager-l2tp
+    ];
+  };
+
+  # StrongSwan configuration to fix integrity test failure
+  environment.etc."strongswan.conf" = {
+    text = ''
+      charon {
+        integrity_test = no
+      }
+    '';
+    mode = "0644";
+  };
+
+  # IPsec configuration file  
+  environment.etc."ipsec.conf" = {
+    text = ''
+      config setup
+        charondebug="ike 1, knl 1, cfg 0"
+        uniqueids=no
+      
+      conn L2TP-PSK
+        authby=secret
+        pfs=no
+        auto=add
+        keyingtries=3
+        rekey=no
+        ikelifetime=8h
+        keylife=1h
+        type=transport
+        left=%defaultroute
+        leftfirewall=yes
+        leftprotoport=17/1701
+        right=%any
+        rightprotoport=17/%any
+    '';
+    mode = "0644";
+  };
+
+  # IPsec secrets file
+  environment.etc."ipsec.secrets" = {
+    text = ''
+      # IPsec secrets for L2TP/IPsec VPN
+      %any %any : PSK "recall-victory-over-acronyms"
+    '';
+    mode = "0600";
+  };
   
+  environment.etc."ipsec.d/.keep" = {
+    text = "";
+  };
+  
+  # Prevent the circular include issue by creating an empty nm-l2tp secrets file
+  environment.etc."ipsec.d/ipsec.nm-l2tp.secrets" = {
+    text = "";
+    mode = "0600";
+  };
+
+  # Create required certificate directories
+  system.activationScripts.ipsecDirs = ''
+    mkdir -p /etc/ipsec.d/{cacerts,aacerts,ocspcerts,acerts,crls}
+    chmod 755 /etc/ipsec.d/{cacerts,aacerts,ocspcerts,acerts,crls}
+  '';
 
 
+
+  # Kernel modules needed for L2TP/IPsec
+  boot.kernelModules = [
+    "l2tp_ppp"
+    "l2tp_netlink"
+    "l2tp_core"
+    "l2tp_ip"
+    "ppp_generic"
+    "ppp_async"
+    "ppp_mppe"
+  ];
+
+  # Alternative approach: Use strongswan-minimal instead of full strongswan
+  environment.systemPackages = with pkgs; [
+    prismlauncher
+    killall
+    lm_sensors
+    jq
+    bibata-cursors
+    sddm-astronaut # Overlayed
+    pokego # Overlayed
+    noisetorch
+    pkgs.kdePackages.qtsvg
+    gnumake
+    pkgs.kdePackages.qtmultimedia
+    glib
+    pkgs.kdePackages.qtvirtualkeyboard
+    fcitx5-mozc-ut
+    tailscale
+    pkgs.qt6Packages.qtwayland
+    pkgs.qt6Packages.full
+    devbox
+    # L2TP/IPsec related packages
+    xl2tpd
+    strongswan
+    networkmanager-l2tp
+    ppp
+    # Additional debugging tools
+    tcpdump
+    wireshark-cli
+  ];
+
+  # Firewall configuration for L2TP/IPsec
+  networking.firewall = {
+    allowedUDPPorts = [ 500 4500 1701 ];
+    allowedTCPPorts = [ ];
+    # Enable connection tracking helpers
+    connectionTrackingModules = [ "l2tp" "pptp" ];
+  };
 
   # Filesystems support
   boot.supportedFilesystems = ["ntfs" "exfat" "ext4" "fat32" "btrfs"];
@@ -232,11 +257,7 @@
   services.hardware.openrgb.enable = true;
   services.xserver = {
     enable = true;
-    # displayManager.sessionCommands = ''
-    # 	xrandr --fb 3640x1920 \
-    #    --output DP-1 --primary --mode 2560x1440 --pos 0x0 \
-    #    --output HDMI-A-1 --mode 1920x1080 --rotate left --pos 2560x0
-    # '';
+
     exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
     xkb = {
       layout = kbdLayout;
@@ -269,7 +290,7 @@
     loader = {
       efi.canTouchEfiVariables = true;
       efi.efiSysMountPoint = "/boot";
-      timeout = null; # Display bootloader indefinitely until user selects OS
+      timeout = 2; # Display bootloader indefinitely until user selects OS
       grub = {
         enable = true;
         device = "nodev";
@@ -291,8 +312,7 @@
       };
     };
   };
-  # services.xserver.desktopManager.runXdgAutostartIfNone=true;
-  # Timezone and locale
+
   time.timeZone = timezone;
   i18n.defaultLocale = locale;
   i18n.inputMethod = {
@@ -317,20 +337,12 @@
     LC_TIME = locale;
   };
   console.keyMap = consoleKeymap; # Configure console keymap
-  # services.xserver = {
-    # exportConfiguration = true; # Make sure /etc/X11/xkb is populated so localectl works correctly
-    # xkb = {
-      # layout = kbdLayout;
-      # variant = kbdVariant;
-    # };
-  # };
 
   security = {
     polkit.enable = true;
     #sudo.wheelNeedsPassword = false;
   };
 
-  # Enable dconf for home-manager
   programs.dconf.enable = true;
 
   # Enable bluetooth
@@ -341,15 +353,7 @@
     settings.General.Experimental = true;
   };
 
-  # Enable networking
-  networking = {
-    # hostName = hostname; # Define your hostname.
-    networkmanager.enable = true;
-    # wireless.enable = true; # Enables wireless support via wpa_supplicant.
-    # Configure network proxy if necessary
-    # networking.proxy.default = "http://user:password@proxy:port/";
-    # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-  };
+ 
 
   # Enable sddm login manager
   services.displayManager = {
@@ -392,8 +396,6 @@
     };
   };
 
-  
-
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
@@ -429,32 +431,6 @@
     templates = "${self}/dev-shells";
   };
   services.tailscale.enable = true;
-  
-  environment.systemPackages = with pkgs; [
-    killall
-    lm_sensors
-    jq
-    bibata-cursors
-    sddm-astronaut # Overlayed
-    pokego # Overlayed
-    noisetorch
-    pkgs.kdePackages.qtsvg
-    gnumake
-    pkgs.kdePackages.qtmultimedia
-    glib
-    pkgs.kdePackages.qtvirtualkeyboard
-    fcitx5-mozc-ut
-    tailscale
-    pkgs.qt6Packages.qtwayland
-    pkgs.qt6Packages.full
-#pkgs.libsForQt6.qt6.qtwayland    
-# vesktop
-    # ocamlPackages.ca-certs
-    # libsForQt5.qt5.qtgraphicaleffects
-    # devenv
-    devbox
-    # shellify
-  ];
 
   programs.npm.enable = true;
   # Some programs need SUID wrappers, can be configured further or are
@@ -534,9 +510,9 @@
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # on your system were taken. It's perfectly fine and recommended to leave
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
