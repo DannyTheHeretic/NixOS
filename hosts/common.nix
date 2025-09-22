@@ -166,6 +166,7 @@
         #kate
         firefox
         plexamp
+	zip
         (pkgs.buildFHSEnv {
               name = "uv";
               runScript = "uv";
@@ -187,6 +188,9 @@
         })
 	immich-go
         wget
+	libreoffice-qt
+	hunspell
+	hunspellDicts.en_US
 	curl
 	glib
 	plex-desktop
