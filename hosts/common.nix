@@ -108,8 +108,9 @@
         fzf
         fd
         git
-        chromium
-        gh
+	chromium
+        popsicle
+	gh
         htop
         libjxl
         microfetch
