@@ -69,6 +69,7 @@
         #kate
         firefox
         plexamp
+	zip
         (pkgs.buildFHSEnv {
               name = "uv";
               runScript = "uv";
@@ -88,19 +89,22 @@
 		    python313Packages.virtualenv 
 	      ];
         })
-	      immich-go
+        immich-go
         wget
-        easyeffects
-        curl
-        glib
-        plex-desktop
-        #plex-desktop-1.108.1
-        podman-compose
-        gcc
-        openssl
-        go
-        slack
-        obsidian
+	libreoffice-qt
+	hunspell
+	hunspellDicts.en_US
+	curl
+	glib
+	plex-desktop
+	#plex-desktop-1.108.1
+	podman-compose
+	gcc
+	openssl
+	go
+	slack
+	obsidian
+	easyeffects
         fzf
         fd
         git
