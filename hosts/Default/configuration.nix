@@ -20,11 +20,10 @@
     ../../modules/desktop/i3-gaps # Enable i3 window manager
 
     ../../modules/programs/games
-    ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
+    # ../../modules/programs/browser/${browser} # Set browser defined in flake.nix
     ../../modules/programs/terminal/${terminal} # Set terminal defined in flake.nix
     ../../modules/programs/editor/vscode
-    ../../modules/programs/editor/${editor} # Set editor defined in flake.nix
-    ../../modules/programs/cli/${terminalFileManager} # Set file-manager defined in flake.nix
+    # ../../modules/programs/editor/vscodium
     ../../modules/programs/cli/starship
     ../../modules/programs/cli/tmux
     ../../modules/programs/cli/direnv

@@ -3,10 +3,10 @@
   pkgs,
   ...
 }: {
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["vscode"];
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["vscodium"];
   home-manager.sharedModules = [
     (_: {
-      programs.vscode = {
+      programs.vscodium = {
         enable = true;
         # mutableExtensionsDir = true; # TODO: test with home-manager
         package = pkgs.vscodium.fhs;

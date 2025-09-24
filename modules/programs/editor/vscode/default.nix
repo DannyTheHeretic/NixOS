@@ -9,16 +9,15 @@
       programs.vscode = {
         enable = true;
         # mutableExtensionsDir = true; # TODO: test with home-manager
-        package = pkgs.vscodium.fhs;
+        package = pkgs.vscode;
 	# package = pkgs.vscode;
         profiles.default = {
           extensions = with pkgs.vscode-extensions; [
-	    mkhl.direnv
+	          mkhl.direnv
             #jeanp413.open-remote-ssh
             bbenoist.nix
             arrterian.nix-env-selector
-	    
-	    github.vscode-github-actions
+	          github.vscode-github-actions
             yzhang.markdown-all-in-one
             # asvetliakov.vscode-neovim
             # vscodevim.vim
@@ -38,21 +37,28 @@
             ms-python.debugpy
             charliermarsh.ruff
             wholroyd.jinja
+	          # ms-vscode.remote-server
             samuelcolvin.jinjahtml
             batisteo.vscode-django
             usernamehw.errorlens
             # JavaScript
             # esbenp.prettier-vscode
-	    # ms-vscode-remote.remote-ssh
+	          # ms-vscode-remote.remote-ssh
             # ms-python.pylint
       	    enkia.tokyo-night
           ]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "remote-ssh-edit";
-        publisher = "ms-vscode-remote";
-        version = "0.47.2";
-        sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
-      		}	
+          {
+              name = "remote-ssh-edit";
+              publisher = "ms-vscode-remote";
+              version = "0.47.2";
+              sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+      	  }
+          {
+              name = "remote-server";
+              publisher	= "ms-vscode";
+              version = "1.6.2025091709";
+              sha256 = "1v322paf8fkzns0c4zqy7yz97apyf9kdbzq7rx3h9mxcisbm5kby";
+          }
     	];  
 	
           keybindings = [
@@ -121,158 +127,6 @@
             "workbench.layoutControl.enabled" = false;
 
             "editor.mouseWheelZoom" = true;
-
-            "C_Cpp.autocompleteAddParentheses" = true;
-            "C_Cpp.formatting" = "vcFormat";
-            "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyFunction" = true;
-            "C_Cpp.vcFormat.newLine.closeBraceSameLine.emptyType" = true;
-            "C_Cpp.vcFormat.space.beforeEmptySquareBrackets" = true;
-            "C_Cpp.vcFormat.newLine.beforeOpenBrace.block" = "sameLine";
-            "C_Cpp.vcFormat.newLine.beforeOpenBrace.function" = "sameLine";
-            "C_Cpp.vcFormat.newLine.beforeElse" = false;
-            "C_Cpp.vcFormat.newLine.beforeCatch" = false;
-            "C_Cpp.vcFormat.newLine.beforeOpenBrace.type" = "sameLine";
-            "C_Cpp.vcFormat.space.betweenEmptyBraces" = true;
-            "C_Cpp.vcFormat.space.betweenEmptyLambdaBrackets" = true;
-            "C_Cpp.vcFormat.indent.caseLabels" = true;
-            "C_Cpp.intelliSenseCacheSize" = 2048;
-            "C_Cpp.intelliSenseMemoryLimit" = 2048;
-            "C_Cpp.default.browse.path" = [
-              ''''${workspaceFolder}/**''
-            ];
-            "C_Cpp.default.cStandard" = "gnu11";
-            "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores" = false;
-            "C_Cpp.intelliSenseUpdateDelay" = 500;
-            "C_Cpp.workspaceParsingPriority" = "medium";
-            "C_Cpp.clang_format_sortIncludes" = true;
-            "C_Cpp.doxygen.generatedStyle" = "/**";
-
-            "vim.leader" = "<Space>";
-            "vim.useCtrlKeys" = true;
-            "vim.hlsearch" = true;
-            "vim.useSystemClipboard" = true;
-            "vim.handleKeys" = {
-              "<C-f>" = true;
-              "<C-a>" = false;
-            };
-            "vim.insertModeKeyBindings" = [
-              {
-                "before" = ["k" "j"];
-                "after" = ["<Esc>" "l"];
-              }
-            ];
-            "vim.normalModeKeyBindingsNonRecursive" = [
-              # NAVIGATION
-              # switch b/w buffers
-              {
-                "before" = ["<S-h>"];
-                "commands" = [":bprevious"];
-              }
-              {
-                "before" = ["<S-l>"];
-                "commands" = [":bnext"];
-              }
-
-              # splits
-              {
-                "before" = ["leader" "v"];
-                "commands" = [":vsplit"];
-              }
-              {
-                "before" = ["leader" "s"];
-                "commands" = [":split"];
-              }
-
-              # panes
-              {
-                "before" = ["<C-h>"];
-                "commands" = ["workbench.action.focusLeftGroup"];
-              }
-              {
-                "before" = ["<C-j>"];
-                "commands" = ["workbench.action.focusBelowGroup"];
-              }
-              {
-                "before" = ["<C-k>"];
-                "commands" = ["workbench.action.focusAboveGroup"];
-              }
-              {
-                "before" = ["<C-l>"];
-                "commands" = ["workbench.action.focusRightGroup"];
-              }
-              # NICE TO HAVE
-              {
-                "before" = ["leader" "w"];
-                "commands" = [":w!"];
-              }
-              {
-                "before" = ["leader" "q"];
-                "commands" = [":q!"];
-              }
-              {
-                "before" = ["leader" "x"];
-                "commands" = [":x!"];
-              }
-              {
-                "before" = ["[" "d"];
-                "commands" = ["editor.action.marker.prev"];
-              }
-              {
-                "before" = ["];" "d"];
-                "commands" = ["editor.action.marker.next"];
-              }
-              {
-                "before" = ["<leader>" "c" "a"];
-                "commands" = ["editor.action.quickFix"];
-              }
-              /*
-                {
-                "before" = [":"];
-                "commands" = ["workbench.action.showCommands"];
-              }
-              */
-              {
-                "before" = ["<leader>" "f"];
-                "commands" = ["workbench.action.quickOpen"];
-              }
-              {
-                "before" = ["<C-n>"];
-                "commands" = ["workbench.action.toggleSidebarVisibility"];
-              }
-              {
-                "before" = ["<leader>" "p"];
-                "commands" = ["editor.action.formatDocument"];
-              }
-              {
-                "before" = ["g" "h"];
-                "commands" = ["editor.action.showDefinitionPreviewHover"];
-              }
-            ];
-            "vim.visualModeKeyBindings" = [
-              # Stay in visual mode while indenting
-              {
-                "before" = ["<"];
-                "commands" = ["editor.action.outdentLines"];
-              }
-              {
-                "before" = [">"];
-                "commands" = ["editor.action.indentLines"];
-              }
-              # Move selected lines while staying in visual mode
-              {
-                "before" = ["J"];
-                "commands" = ["editor.action.moveLinesDownAction"];
-              }
-              {
-                "before" = ["K"];
-                "commands" = ["editor.action.moveLinesUpAction"];
-              }
-              # toggle comment selection
-              {
-                "before" = ["leader" "c"];
-                "commands" = ["editor.action.commentLine"];
-              }
-            ];
           };
         };
       };
