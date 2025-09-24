@@ -69,7 +69,7 @@
         #kate
         firefox
         plexamp
-	zip
+	      zip
         (pkgs.buildFHSEnv {
               name = "uv";
               runScript = "uv";
@@ -91,20 +91,20 @@
         })
         immich-go
         wget
-	libreoffice-qt
-	hunspell
-	hunspellDicts.en_US
-	curl
-	glib
-	plex-desktop
-	#plex-desktop-1.108.1
-	podman-compose
-	gcc
-	openssl
-	go
-	slack
-	obsidian
-	easyeffects
+        libreoffice-qt
+        hunspell
+        hunspellDicts.en_US
+        curl
+        glib
+        plex-desktop
+        #plex-desktop-1.108.1
+        podman-compose
+        gcc
+        openssl
+        go
+        slack
+        obsidian
+        easyeffects
         fzf
         fd
         git
@@ -217,6 +217,56 @@
 
   # Alternative approach: Use strongswan-minimal instead of full strongswan
   environment.systemPackages = with pkgs; [
+    vscodium
+    (vscode-with-extensions.override {
+      vscode = vscodium;
+      vscodeExtensions = with vscode-extensions; [
+            mkhl.direnv
+            #jeanp413.open-remote-ssh
+            bbenoist.nix
+            arrterian.nix-env-selector
+	          github.vscode-github-actions
+            yzhang.markdown-all-in-one
+            # asvetliakov.vscode-neovim
+            # vscodevim.vim
+            tamasfe.even-better-toml
+            jnoortheen.nix-ide
+            # redhat.vscode-yaml
+            # vadimcn.vscode-lldb
+            rust-lang.rust-analyzer
+            ms-vscode.cpptools
+            ms-vscode.cmake-tools
+            ms-vscode.makefile-tools
+            ziglang.vscode-zig
+            # ms-dotnettools.csharp
+            # python
+            ms-python.python
+            njpwerner.autodocstring
+            ms-python.debugpy
+            charliermarsh.ruff
+            wholroyd.jinja
+            samuelcolvin.jinjahtml
+            batisteo.vscode-django
+            usernamehw.errorlens
+            # JavaScript
+            # esbenp.prettier-vscode
+            # ms-python.pylint
+      	    enkia.tokyo-night
+          ]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+              name = "remote-ssh-edit";
+              publisher = "ms-vscode-remote";
+              version = "0.47.2";
+              sha256 = "1hp6gjh4xp2m1xlm1jsdzxw9d8frkiidhph6nvl24d0h8z34w49g";
+      	  }
+          {
+              name = "remote-server";
+              publisher	= "ms-vscode";
+              version = "1.6.2025091709";
+              sha256 = "1v322paf8fkzns0c4zqy7yz97apyf9kdbzq7rx3h9mxcisbm5kby";
+          }
+    	];
+  })
     prismlauncher
     killall
     lm_sensors
