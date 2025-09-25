@@ -13,7 +13,7 @@
           control-center-margin-top = 22;
           control-center-margin-bottom = 2;
           control-center-margin-right = 1;
-          control-center-margin-left = 0;
+          control-center-margin-left = 100;
           notification-icon-size = 64;
           notification-body-image-height = 128;
           notification-body-image-width = 200;
@@ -194,46 +194,43 @@
         };
         style = ''
           @define-color shadow rgba(0, 0, 0, 0.25);
-          /*
-          *
-          * Catppuccin Mocha palette
-          * Maintainer: rubyowo
-          *
-          */
 
-          @define-color base   #1E1D2E;
-          @define-color mantle #181825;
-          @define-color crust  #11111b;
+          /* Tokyo Night palette inspired */
 
-          @define-color text     #cdd6f4;
-          @define-color subtext0 #a6adc8;
-          @define-color subtext1 #bac2de;
+          @define-color base      #1a1b26;
+          @define-color mantle    #16161e;
+          @define-color crust     #11121d;
 
-          @define-color surface0 #313244;
-          @define-color surface1 #45475a;
-          @define-color surface2 #585b70;
+          @define-color text      #c0caf5;
+          @define-color subtext0  #a9b1d6;
+          @define-color subtext1  #8c8fba;
 
-          @define-color overlay0 #6c7086;
-          @define-color overlay1 #7f849c;
-          @define-color overlay2 #9399b2;
+          @define-color surface0  #2f334d;
+          @define-color surface1  #3b4261;
+          @define-color surface2  #454f71;
 
-          @define-color blue      #89b4fa;
-          @define-color lavender  #b4befe;
-          @define-color sapphire  #74c7ec;
-          @define-color sky       #89dceb;
-          @define-color teal      #94e2d5;
-          @define-color green     #a6e3a1;
-          @define-color yellow    #f9e2af;
-          @define-color peach     #fab387;
-          @define-color maroon    #eba0ac;
-          @define-color red       #f38ba8;
-          @define-color mauve     #cba6f7;
-          @define-color pink      #f5c2e7;
-          @define-color flamingo  #f2cdcd;
-          @define-color rosewater #f5e0dc;
+          @define-color overlay0  #565f89;
+          @define-color overlay1  #6c7394;
+          @define-color overlay2  #7f849c;
 
-          @define-color base_lighter  #1e1e2e;
-          @define-color mauve_lighter #caa6f7;
+          @define-color blue     #7aa2f7;
+          @define-color lavender #9d7cd8;
+          @define-color sapphire #1abcfe;
+          @define-color sky      #7dcfff;
+          @define-color teal     #14b8a6;
+          @define-color green    #41a6b5;
+          @define-color yellow   #e0af68;
+          @define-color peach    #f7768e;
+          @define-color maroon   #db4b4b;
+          @define-color red      #f7768e;
+          @define-color mauve    #bb9af7;
+          @define-color pink     #f7768e;
+          @define-color flamingo #f7768e;
+          @define-color rosewater #f2d5cf;
+
+          @define-color base_lighter  #2a2b3a;
+          @define-color mauve_lighter #b7a0f9;
+
 
           * {
             font-family: "Product Sans";

@@ -12,31 +12,7 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:Sly-Harvey/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nur.url = "github:nix-community/NUR";
-    betterfox = {
-      url = "github:yokoffing/Betterfox";
-      flake = false;
-    };
-    thunderbird-catppuccin = {
-      url = "github:catppuccin/thunderbird";
-      flake = false;
-    };
-    zen-browser = {
-      url = "github:maximoffua/zen-browser.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nvchad4nix = {
-      url = "github:nix-community/nix4nvchad";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -56,7 +32,7 @@
       wallpaper = "fog"; # see modules/themes/wallpapers
 
       # System configuration
-      videoDriver = "nvidia"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
+      videoDriver = "intel"; # CHOOSE YOUR GPU DRIVERS (nvidia, amdgpu or intel)
       hostname = "NixOS"; # CHOOSE A HOSTNAME HERE
       locale = "en_US.UTF-8"; # CHOOSE YOUR LOCALE
       timezone = "America/Chicago"; # CHOOSE YOUR TIMEZONE
