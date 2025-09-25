@@ -95,6 +95,7 @@
         hunspell
         hunspellDicts.en_US
         curl
+	freetube
         glib
         plex-desktop
         #plex-desktop-1.108.1
